@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type BrandInterface from "./types/BrandInterface";
+import type BrandInterface from "../types/BrandInterface";
 
 defineProps<{
   label?: string;
