@@ -6,13 +6,13 @@ describe("FormField", () => {
   it("renders a label and input with the correct type", () => {
     const wrapper = mount(FormField, {
       props: {
-        label: "Email",
-        type: "email",
+        label: "Product Name",
+        type: "text",
       },
     });
 
-    expect(wrapper.find("label").text()).toBe("Email");
-    expect(wrapper.find("input").attributes("type")).toBe("email");
+    expect(wrapper.find("label").text()).toBe("Product Name");
+    expect(wrapper.find("input").attributes("type")).toBe("text");
   });
 
   it("renders a select element with the given brands", () => {
