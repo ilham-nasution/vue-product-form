@@ -6,10 +6,13 @@ import { required, helpers } from "@vuelidate/validators";
 import useSupabase from "./composables/useSupabase";
 import type BrandInterface from "./types/BrandInterface";
 import type FormInterface from "./types/FormInterface";
+import type ProductInterface from "./types/ProductInterface";
 import FormInput from "./components/FormInput.vue";
+import useCurrencyIDR from "./composables/useCurrencyIDR";
 
 const brands = ref<BrandInterface[] | null>([]);
 const forms = ref<FormInterface[] | null>([]);
+const products = ref<ProductInterface[] | null>([]);
 const loading = ref(false);
 const success = ref(false);
 const product_data = reactive({
@@ -57,6 +60,11 @@ async function getForms() {
   forms.value = data;
 }
 
+async function getProducts() {
+  const { data } = await useSupabase.from("products").select();
+  products.value = data;
+}
+
 async function handleSubmitProduct() {
   loading.value = true;
   const valid = await v$.value.$validate();
@@ -86,6 +94,7 @@ async function handleSubmitProduct() {
     } else {
       loading.value = false;
       success.value = true;
+      getProducts();
     }
   } else {
     loading.value = false;
@@ -95,11 +104,12 @@ async function handleSubmitProduct() {
 onMounted(() => {
   getBrands();
   getForms();
+  getProducts();
 });
 </script>
 
 <template>
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-3 pb-5">
     <h1 class="text-3xl font-bold">Add Product</h1>
 
     <div
@@ -170,5 +180,21 @@ onMounted(() => {
         </button>
       </div>
     </form>
+
+    <h1 class="text-3xl font-bold mt-5">Product List</h1>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div
+        v-for="product in products"
+        :key="product.id"
+        class="border-2 border-black rounded flex items-center"
+      >
+        <img :src="product.img_url" :alt="product.name" class="w-20" />
+        <div>
+          <p>{{ product.name }}</p>
+          <p>{{ useCurrencyIDR(product.price) }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
