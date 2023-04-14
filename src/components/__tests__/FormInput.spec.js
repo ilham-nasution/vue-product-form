@@ -1,10 +1,10 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect } from "vitest";
-import FormField from "../FormInput.vue";
+import FormInput from "../FormInput.vue";
 
-describe("FormField", () => {
+describe("FormInput", () => {
   it("renders a label and input with the correct type", () => {
-    const wrapper = mount(FormField, {
+    const wrapper = mount(FormInput, {
       props: {
         label: "Product Name",
         type: "text",
@@ -21,7 +21,7 @@ describe("FormField", () => {
       { id: 2, name: "Brand B" },
       { id: 3, name: "Brand C" },
     ];
-    const wrapper = mount(FormField, {
+    const wrapper = mount(FormInput, {
       props: {
         label: "Brand",
         type: "select",
@@ -38,7 +38,7 @@ describe("FormField", () => {
   });
 
   it("renders a textarea element", () => {
-    const wrapper = mount(FormField, {
+    const wrapper = mount(FormInput, {
       props: {
         label: "Description",
         type: "textarea",
@@ -50,7 +50,7 @@ describe("FormField", () => {
   });
 
   it("renders radio buttons with the given label", () => {
-    const wrapper = mount(FormField, {
+    const wrapper = mount(FormInput, {
       props: {
         label: "Condition",
         type: "radio",
@@ -64,7 +64,7 @@ describe("FormField", () => {
   });
 
   it("renders a checkbox with the given label", () => {
-    const wrapper = mount(FormField, {
+    const wrapper = mount(FormInput, {
       props: {
         label: "I agree to the terms and conditions",
         type: "checkbox",
