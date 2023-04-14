@@ -8,9 +8,10 @@ defineProps<{
   name: string;
   price: string;
   description: string;
-  img_file: FileList;
+  img_file: string;
   brand: string;
   condition: string;
+  term: boolean | null;
 }>();
 </script>
 
@@ -67,7 +68,11 @@ defineProps<{
   </div>
 
   <label v-else-if="type === 'checkbox'" class="inline-flex items-center">
-    <input type="checkbox" />
+    <input
+      type="checkbox"
+      value="term"
+      @change="$emit('update:term', ($event.target as HTMLInputElement).value)"
+    />
     <span class="ml-2">I agree to the terms and conditions</span>
   </label>
 
